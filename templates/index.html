@@ -12,8 +12,8 @@
 
     <p class="tempo">⏳ Tempo restante: {{ tempo }}</p>
 
-    <!-- STATUS DINÂMICO -->
-    <div class="status" id="status">🤔 ANALISANDO...</div>
+    <!-- STATUS -->
+    <div class="status" id="status">🤔 ANALISANDO OS RESULTADOS...</div>
     <div id="signal" class="signal"></div>
 
     <!-- BOTOES DE RESULTADOS -->
@@ -40,36 +40,56 @@ let history = [];
 function addResult(r) {
     history.push(r);
 
+    // Atualiza histórico visual
     const list = document.getElementById("historyList");
     const item = document.createElement("li");
     item.textContent = new Date().toLocaleTimeString() + " → " + r;
     list.prepend(item);
 
-    // Analisa os últimos 3 resultados
-    if (history.length >= 3) {
-        analyze();
-    }
+    // Recalcula probabilidade sempre que houver novo resultado
+    analyzeProbabilities();
 }
 
-// Analise de sinais
-function analyze() {
-    const last = history.slice(-3).join("");
+// Função de análise probabilística
+function analyzeProbabilities() {
     const status = document.getElementById("status");
     const signal = document.getElementById("signal");
 
-    if (last === "BBB") {
-        status.className = "status green";
-        status.innerHTML = "😄🔥 ENTRAR AGORA";
-        signal.innerHTML = "🟢 APOSTAR BANKER <br> 🛡️ EMPATE";
-    } else if (last === "PPP") {
-        status.className = "status green";
-        status.innerHTML = "😄🔥 ENTRAR AGORA";
-        signal.innerHTML = "🟢 APOSTAR PLAYER <br> 🛡️ EMPATE";
-    } else {
-        status.className = "status red";
-        status.innerHTML = "❌ AGUARDAR";
+    if(history.length === 0){
+        status.className = "status yellow";
+        status.innerHTML = "🤔 ANALISANDO OS RESULTADOS...";
         signal.innerHTML = "";
+        return;
     }
+
+    // Conta ocorrências
+    let countP = history.filter(x => x === "P").length;
+    let countB = history.filter(x => x === "B").length;
+    let countT = history.filter(x => x === "T").length;
+    let total = countP + countB + countT;
+
+    // Calcula probabilidades
+    let probP = ((countP / total) * 100).toFixed(1);
+    let probB = ((countB / total) * 100).toFixed(1);
+    let probT = ((countT / total) * 100).toFixed(1);
+
+    // Determina sinal sugerido
+    let maxProb = Math.max(probP, probB, probT);
+    let suggested = "";
+    if(maxProb == probP) suggested = "PLAYER";
+    else if(maxProb == probB) suggested = "BANKER";
+    else suggested = "EMPATE";
+
+    // Atualiza status visual
+    status.className = "status green";
+    status.innerHTML = `💡 SINAL SUGERIDO: ${suggested}`;
+
+    // Mostra probabilidades detalhadas
+    signal.innerHTML = `
+        🟢 PLAYER: ${probP}% <br>
+        🔴 BANKER: ${probB}% <br>
+        🟡 EMPATE: ${probT}%
+    `;
 }
 </script>
 
