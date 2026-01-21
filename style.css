@@ -1,0 +1,103 @@
+body {
+    background: #0f172a;
+    color: white;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.login-box {
+    max-width: 300px;
+    margin: 100px auto;
+    background: #1e293b;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: none;
+}
+
+button {
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.login-box button {
+    background: #22c55e;
+    width: 100%;
+}
+
+.erro {
+    color: #ef4444;
+}
+
+.timer {
+    text-align: center;
+    background: #020617;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    font-weight: bold;
+    color: #22c55e;
+}
+
+.timer.warning {
+    color: #facc15;
+}
+
+.timer.danger {
+    color: #ef4444;
+}
+
+.buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.buttons button {
+    width: 120px;
+    background: #334155;
+    color: white;
+}
+
+.status {
+    text-align: center;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.status.wait {
+    background: #334155;
+}
+
+.status.win {
+    background: #16a34a;
+}
+
+.signal {
+    text-align: center;
+    font-size: 1.2em;
+    margin-bottom: 20px;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
