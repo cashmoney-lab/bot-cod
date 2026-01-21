@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Acesso ao Bot</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="container">
+    <h1>🔐 Acesso Restrito</h1>
+
+    <!-- LOGIN POR USUÁRIO/SENHA -->
+    <form method="POST">
+        <input type="text" name="username" placeholder="Usuário" >
+        <input type="password" name="password" placeholder="Senha">
+        <button type="submit">Entrar</button>
+    </form>
+
+    <hr style="margin:15px 0; border-color:#555;">
+
+    <!-- LOGIN POR CÓDIGO DE PLANO -->
+    <form method="POST">
+        <input type="text" name="code" placeholder="Código de acesso">
+        <button type="submit">Entrar com Código</button>
+    </form>
+
+    {% if erro %}
+        <p class="erro">{{ erro }}</p>
+    {% endif %}
+
+    <p class="info">
+        Planos disponíveis:<br>
+        1h • 3h • 5h • 10h • 24h<br>
+        OU use seu login e senha
+    </p>
+</div>
+
+</body>
+</html>

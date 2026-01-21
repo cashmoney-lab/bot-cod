@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Bot Código de Aposta</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="container">
+    <h1>🎰 BOT DE APOSTA</h1>
+
+    <p class="tempo">⏳ Tempo restante: {{ tempo }}</p>
+
+    <div class="status green">✅ ENTRADA VERDE 😄💰</div>
+    <div class="status yellow">⚠️ ATENÇÃO 🤔</div>
+    <div class="status red">❌ AGUARDAR 😢</div>
+
+    <h2>📜 Histórico</h2>
+
+    <div class="historico">
+        {% for item in historico %}
+            <div class="hist-item">
+                {{ item.tipo }}<br>
+                <small>{{ item.hora }}</small>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+</body>
+</html>
