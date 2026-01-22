@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <title>Insurance Baccarat Bot</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<h1>🎰 Insurance Baccarat Bot</h1>
+
+<div class="controls">
+  <button onclick="send('P')">PLAYER</button>
+  <button onclick="send('B')">BANKER</button>
+  <button onclick="send('T')">EMPATE</button>
+</div>
+
+<div id="resultado-box" class="resultado yellow">
+  <h2 id="acao">AGUARDAR</h2>
+  <p id="mensagem">Aguardando resultados...</p>
+
+  <div class="barra">
+    <div id="barra-progresso"></div>
+  </div>
+
+  <p><strong>Probabilidade:</strong> <span id="probabilidade">0%</span></p>
+  <p><strong>Histórico:</strong> <span id="historico"></span></p>
+</div>
+
+<script>
+function send(res) {
+  fetch("/add", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({resultado: res})
+  })
+  .then(r => r.json())
+  .then(data => {
+    if (data.error === "expired") {
+      window.location.href = "/expired";
+      return;
+    }
+
+    const box = document.getElementById("resultado-box");
+    const barra = document.getElementById("barra-progresso");
+
+    box.className = "resultado " + data.cor;
+    document.getElementById("acao").innerText = data.acao;
+    document.getElementById("mensagem").innerText = data.mensagem;
+    document.getElementById("probabilidade").innerText = data.probabilidade + "%";
+    document.getElementById("historico").innerText = data.historico;
+
+    barra.style.width = data.probabilidade + "%";
+    barra.style.background =
+      data.cor === "green" ? "#2ecc71" :
+      data.cor === "yellow" ? "#f1c40f" : "#e74c3c";
+  });
+}
+</script>
+
+</body>
+</html>
