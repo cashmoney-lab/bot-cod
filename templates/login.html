@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login - Insurance Baccarat Bot</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="container">
+    <h2>🔐 Login</h2>
+
+    {% if error %}
+      <p class="signal-red">Credenciais inválidas</p>
+    {% endif %}
+
+    <form method="POST">
+      <input name="username" placeholder="Usuário" required><br>
+      <input name="password" type="password" placeholder="Senha" required><br>
+      <button type="submit">Entrar</button>
+    </form>
+  </div>
+</body>
+</html>

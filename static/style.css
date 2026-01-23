@@ -1,0 +1,45 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #0b0f19;
+  color: #fff;
+  text-align: center;
+  padding: 20px;
+}
+
+.container {
+  max-width: 500px;
+  margin: auto;
+  background: #12182b;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+input, button {
+  padding: 10px;
+  margin: 5px;
+  border-radius: 5px;
+  border: none;
+}
+
+button {
+  background: #2563eb;
+  color: white;
+  cursor: pointer;
+}
+
+.signal-green {
+  color: #22c55e;
+}
+
+.signal-yellow {
+  color: #facc15;
+}
+
+.signal-red {
+  color: #ef4444;
+}
+
+.history {
+  margin-top: 15px;
+  font-size: 14px;
+}

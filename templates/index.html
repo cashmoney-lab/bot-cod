@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Insurance Baccarat Bot</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<div class="container">
+  <h2>🤖 Insurance Baccarat Bot</h2>
+
+  <input id="input" placeholder="Digite P, B ou T">
+  <button onclick="addResult()">Adicionar</button>
+
+  <div id="status"></div>
+  <div class="history" id="history"></div>
+
+  <br>
+  <a href="/logout">Sair</a>
+</div>
+
+<script>
+let history = [];
+
+function addResult() {
+  const val = document.getElementById("input").value.toUpperCase();
+  if (!["P","B","T"].includes(val)) return;
+
+  history.push(val);
+  document.getElementById("input").value = "";
+
+  document.getElementById("history").innerText =
+    "Histórico: " + history.join(" ");
+
+  analyze();
+}
+
+function analyze() {
+  let n = history.length;
+  let status = document.getElementById("status");
+
+  if (n < 3) {
+    status.innerHTML = "⏳ Aguardando dados suficientes";
+    return;
+  }
+
+  let last3 = history.slice(-3).join("");
+
+  // ❌ BLOQUEIOS
+  if (last3 === "PPP" || last3 === "BBB") {
+    status.innerHTML =
+      "<p class='signal-red'>❌ Sequência longa detectada<br>Aguardar mercado estabilizar 😞</p>";
+    return;
+  }
+
+  // ✅ ALTERNÂNCIA
+  if (last3 === "PBP" || last3 === "BPB") {
+    let bet = last3[2];
+    status.innerHTML =
+      `<p class='signal-green'>🟢 SINAL CONFIRMADO 😎<br>
+      Apostar em <b>${bet === "P" ? "PLAYER" : "BANKER"}</b><br>
+      Proteção: EMPATE</p>`;
+    return;
+  }
+
+  // ⚠️ NADA CLARO
+  status.innerHTML =
+    "<p class='signal-yellow'>⚠️ Sem padrão claro<br>Aguardar…</p>";
+}
+</script>
+</body>
+</html>
